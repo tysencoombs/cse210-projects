@@ -4,101 +4,94 @@ class Program
 {
     static void Main(string[] args)
     {
-        // Ask for the user's grade percentage
-        Console.Write("Enter your grade percentage: ");
-        string input = Console.ReadLine();
+        // Ask for the user input
+        Console.Write("What is your grade percentage: ");
+        string answer = Console.ReadLine();
+
+        // Parse the input to an integer
+        int percent = int.Parse(answer);
+
+        string letter = "";
+        string sign = "";
         
-        // Convert the input to an integer
-        int grade;
-        
-        // Try parsing the input
-        if (int.TryParse(input, out grade))
+        // Determine the letter grade based on the grade percentage
+        if (percent >= 90)
         {
-            string letterGrade = ""; // To store the letter grade
-            string sign = ""; // To store the grade sign (e.g., "+", "-", or empty)
-            
-            // Determine the letter grade based on the grade percentage
-            if (grade >= 90)
+            letter = "A";
+            if (percent < 100) // A+ is not allowed
             {
-                letterGrade = "A";
-                if (grade % 10 >= 7)
+                if (percent % 10 >= 7)
                 {
                     sign = "+";
                 }
-                else if (grade % 10 < 3)
+                else if (percent % 10 < 3)
                 {
                     sign = "-";
                 }
             }
-            else if (grade >= 80)
+        }
+        else if (percent >= 80)
+        {
+            letter = "B";
+            if (percent % 10 >= 7)
             {
-                letterGrade = "B";
-                if (grade % 10 >= 7)
-                {
-                    sign = "+";
-                }
-                else if (grade % 10 < 3)
-                {
-                    sign = "-";
-                }
+                sign = "+";
             }
-            else if (grade >= 70)
+            else if (percent % 10 < 3)
             {
-                letterGrade = "C";
-                if (grade % 10 >= 7)
-                {
-                    sign = "+";
-                }
-                else if (grade % 10 < 3)
-                {
-                    sign = "-";
-                }
+                sign = "-";
             }
-            else if (grade >= 60)
+        }
+        else if (percent >= 70)
+        {
+            letter = "C";
+            if (percent % 10 >= 7)
             {
-                letterGrade = "D";
-                if (grade % 10 >= 7)
-                {
-                    sign = "+";
-                }
-                else if (grade % 10 < 3)
-                {
-                    sign = "-";
-                }
+                sign = "+";
             }
-            else
+            else if (percent % 10 < 3)
             {
-                letterGrade = "F";
+                sign = "-";
             }
-
-            // Handle special case for A+ (not allowed) and F+ or F- (not allowed)
-            if (letterGrade == "A" && sign == "+")
+        }
+        else if (percent >= 60)
+        {
+            letter = "D";
+            if (percent % 10 >= 7)
             {
-                sign = ""; // A+ is not valid
+                sign = "+";
             }
-
-            if (letterGrade == "F")
+            else if (percent % 10 < 3)
             {
-                sign = ""; // F+ or F- is not valid
-            }
-
-            // Print the letter grade with its sign
-            Console.WriteLine($"Your grade is: {letterGrade}{sign}");
-
-            // Check if the user passed or failed
-            if (grade >= 70)
-            {
-                Console.WriteLine("Congratulations, you passed the course!");
-            }
-            else
-            {
-                Console.WriteLine("Sorry, you did not pass. Better luck next time!");
+                sign = "-";
             }
         }
         else
         {
-            // Handle invalid input
-            Console.WriteLine("Invalid input. Please enter a valid number.");
+            letter = "F";
+        }
+
+        // Handle special case for A+ and F+ or F- 
+        if (letter == "A" && sign == "+")
+        {
+            sign = ""; 
+
+        if (letter == "F")
+        {
+            sign = ""; 
+        }
+
+        // Print the letter grade with its sign
+        Console.WriteLine($"Your grade is: {letter}{sign}");
+
+        if (percent >= 70)
+        {
+            Console.WriteLine("Congratulations, you passed the course!");
+        }
+        else
+        {
+            Console.WriteLine("Sorry, you did not pass. Better luck next time!");
         }
     }
+}
 }
